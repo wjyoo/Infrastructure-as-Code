@@ -21,33 +21,39 @@
 
 # Creates a compartment
 
-#module "compartment"{
-#    source = "./modules/compartment"
-#    tenancy_ocid = "${var.tenancy_ocid}"
-#    group_name = "${module.group.group_name}"
-#}
+module "compartment" {
+  source        = "./modules/compartment"
+  tenancy_ocid  = "${var.tenancy_ocid}"
+  name_prefix   = "${var.name_prefix}"
+  freeform_tags = "${var.freeform_tags}"
+  # group_name   = "${module.group.group_name}"
+}
 
 # Create a Virtual Cloud Network
 
 module "vcn" {
-  source = "./apackrsct01/modules/vcn"
+  source       = "./modules/vcn"
   tenancy_ocid = "${var.tenancy_ocid}"
-  compartment_ocid = "${var.compartment_ocid}"
+  #compartment_ocid    = "${var.compartment_ocid}"
+  compartment_ocid    = "${module.compartment.compartment_id}" # create with compartment.
   availability_domain = "${var.availability_domain}"
-  name_prefix = "${var.name_prefix}"
+  name_prefix         = "${var.name_prefix}"
+  freeform_tags       = "${var.freeform_tags}"
 }
 
 # Creates Compute Instance
 
-module "compute"{
-    source = "./apackrsct01/modules/compute"
-    tenancy_ocid = "${var.tenancy_ocid}"
-    region = "${var.region}"
-    compartment_ocid = "${var.compartment_ocid}"
-    availability_domain = "${var.availability_domain}"
-    instance_shape = "${var.instance_shape}"
-    num_nodes = "${var.num_nodes}"
-    name_prefix = "${var.name_prefix}"
-    ssh_public_key = "${file(var.ssh_public_key)}"
-    tfsubnet_ocid = "${module.vcn.tfsubnet_ocid}"
+module "compute" {
+  source       = "./modules/compute"
+  tenancy_ocid = "${var.tenancy_ocid}"
+  region       = "${var.region}"
+  #compartment_ocid = "${var.compartment_ocid}" # already created.
+  compartment_ocid    = "${module.compartment.compartment_id}" # create with compartment.
+  availability_domain = "${var.availability_domain}"
+  instance_shape      = "${var.instance_shape}"
+  num_nodes           = "${var.num_nodes}"
+  name_prefix         = "${var.name_prefix}"
+  ssh_public_key      = "${file(var.ssh_public_key)}"
+  public_subnet_ocid  = "${module.vcn.public_subnet_ocid}"
+  freeform_tags       = "${var.freeform_tags}"
 }

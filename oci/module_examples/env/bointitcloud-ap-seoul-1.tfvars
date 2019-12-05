@@ -1,0 +1,7 @@
+tenancy_ocid     = "ocid1.tenancy.oc1..aaaaaaaa2wzbzfdjd46g36dkrl7thlt3njtu7eoicp5waa7lekkigf6clnbq"
+compartment_ocid = "ocid1.compartment.oc1..aaaaaaaanojzru4tvrayjwezor2dlbo2um25xodb5bz2zp4kyx3nj7xgax6a"
+user_ocid        = "ocid1.user.oc1..aaaaaaaapmseo7ceim2au2w5au7mex3kaoxr35ua4w2qwabq6iosw7mvhfga"
+fingerprint      = "48:1a:98:8c:cd:f6:63:4b:fb:4d:8d:26:44:aa:37:f6"
+private_key_path = "~/.oci/oci_api_key.pem"
+region           = "ap-seoul-1"
+ssh_public_key   = "~/.ssh/id_rsa.pub"

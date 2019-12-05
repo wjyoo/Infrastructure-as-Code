@@ -14,6 +14,11 @@ variable "availability_domain" {
   default = 1
 }
 
+variable "tenancies" {
+  type    = "list"
+  default = ["bointitcloud", "danskbb"]
+}
+
 variable "num_nodes" {
   default = 2
 }
@@ -24,4 +29,20 @@ variable "name_prefix" {
 
 variable "instance_shape" {
   default = "VM.Standard2.1"
+}
+
+variable "freeform_tags" {
+  type = "map"
+
+  default = {
+    freeform_tags = "Freeform Tags"
+  }
+}
+
+variable "defined_tags" {
+  type = "map"
+
+  default = {
+    "KRSET02.ET" = "ET_TEAM:donghu.kim@oracle.com"
+  }
 }
