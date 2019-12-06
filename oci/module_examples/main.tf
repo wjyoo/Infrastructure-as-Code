@@ -32,10 +32,9 @@ module "compartment" {
 # Create a Virtual Cloud Network
 
 module "vcn" {
-  source       = "./modules/vcn"
-  tenancy_ocid = "${var.tenancy_ocid}"
-  #compartment_ocid    = "${var.compartment_ocid}"
-  compartment_ocid    = "${module.compartment.compartment_id}" # create with compartment.
+  source              = "./modules/vcn"
+  tenancy_ocid        = "${var.tenancy_ocid}"
+  compartment_ocid    = "${var.compartment_ocid} == '' ? ${module.compartment.compartment_id} : ${var.compartment_ocid}"
   availability_domain = "${var.availability_domain}"
   name_prefix         = "${var.name_prefix}"
   freeform_tags       = "${var.freeform_tags}"
@@ -44,11 +43,10 @@ module "vcn" {
 # Creates Compute Instance
 
 module "compute" {
-  source       = "./modules/compute"
-  tenancy_ocid = "${var.tenancy_ocid}"
-  region       = "${var.region}"
-  #compartment_ocid = "${var.compartment_ocid}" # already created.
-  compartment_ocid    = "${module.compartment.compartment_id}" # create with compartment.
+  source              = "./modules/compute"
+  tenancy_ocid        = "${var.tenancy_ocid}"
+  region              = "${var.region}"
+  compartment_ocid    = "${var.compartment_ocid} == '' ? ${module.compartment.compartment_id} : ${var.compartment_ocid}"
   availability_domain = "${var.availability_domain}"
   instance_shape      = "${var.instance_shape}"
   num_nodes           = "${var.num_nodes}"

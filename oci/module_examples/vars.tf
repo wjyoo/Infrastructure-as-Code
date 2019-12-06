@@ -7,7 +7,6 @@ variable "private_key_path" {}
 variable "compartment_ocid" {}
 variable "region" {}
 variable "ssh_public_key" {}
-
 # Uses Default Value
 
 variable "availability_domain" {
@@ -18,6 +17,7 @@ variable "tenancies" {
   type    = "list"
   default = ["bointitcloud", "danskbb"]
 }
+
 
 variable "num_nodes" {
   default = 2

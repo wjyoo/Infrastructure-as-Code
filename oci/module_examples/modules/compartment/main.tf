@@ -14,15 +14,6 @@ resource "oci_identity_compartment" "compartment" {
   freeform_tags  = "${var.freeform_tags}"
 }
 
-data "oci_identity_compartments" "compartments" {
-  compartment_id = "${oci_identity_compartment.compartment.compartment_id}"
-
-  filter {
-    name   = "name"
-    values = ["${var.name_prefix}-compartment"]
-  }
-}
-
 # resource "oci_identity_policy" "policy" {
 #   name           = "policy-test"
 #   description    = "policy created for testing"
